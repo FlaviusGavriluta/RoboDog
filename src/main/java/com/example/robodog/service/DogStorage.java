@@ -2,10 +2,12 @@ package com.example.robodog.service;
 
 import com.example.robodog.model.Breed;
 import com.example.robodog.model.Dog;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class DogStorage {
     private final List<Dog> dogs = new ArrayList<>();
     private final DogCreator dogCreator = new DogCreator();
