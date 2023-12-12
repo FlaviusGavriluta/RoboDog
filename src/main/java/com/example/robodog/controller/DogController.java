@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/dogs")
@@ -20,8 +21,11 @@ public class DogController {
 
     @GetMapping("/random")
     public Dog getRandomDog() {
-        dogStorage.addRandomDog();
-        return dogStorage.getDogs().get(dogStorage.getDogs().size() - 1);
+        List<Dog> allDogs = dogStorage.getDogs();
+        Random random = new Random();
+        int randomIndex = random.nextInt(allDogs.size());
+
+        return allDogs.isEmpty() ? null : allDogs.get(randomIndex);
     }
 
     @PostMapping
