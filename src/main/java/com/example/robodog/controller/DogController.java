@@ -3,6 +3,7 @@ package com.example.robodog.controller;
 import com.example.robodog.model.Dog;
 import com.example.robodog.service.DogStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +35,13 @@ public class DogController {
     }
 
     @PutMapping("/{name}")
-    public void updateDog(@PathVariable String name, @RequestBody Dog dog) {
-        dogStorage.updateDog(name, dog.getAge(), dog.getBreed());
+    public ResponseEntity<?> updateDog(@PathVariable String name, @RequestBody Dog dog) {
+        boolean isUpdated = dogStorage.updateDog(name, dog.getAge(), dog.getBreed());
+        if (isUpdated) {
+            return ResponseEntity.ok().build(); // or return some success message
+        } else {
+            return ResponseEntity.notFound().build(); // or return some error message
+        }
     }
+
 }
